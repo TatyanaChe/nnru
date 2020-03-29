@@ -2,12 +2,13 @@ package org.ch.tan.nnru;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.ch.tan.common.Browser;
 import org.ch.tan.common.DriverFactory;
 import org.ch.tan.common.Props;
-import org.ch.tan.pages.LastPage;
+import org.ch.tan.pages.ForumPage;
 import org.ch.tan.pages.MainPage;
 import org.junit.After;
 import org.junit.Before;
@@ -22,11 +23,13 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class TestNnru {
 
 	private WebDriver driver;
+//	MainPage mainPage = new MainPage(driver);
 
 	@Before
-	public void beforeTest() {
+	public void beforeTest() throws InterruptedException {
 		WebDriverManager.chromedriver().setup();
 		driver = DriverFactory.get(Browser.chrome);
+		
 
 	}
 
@@ -68,19 +71,39 @@ public class TestNnru {
 		mainPage.clickButtonViceVersa();
 		mainPage.clickFilterByTitleSeek();
 		mainPage.clickButtonApply();
-//	Закрыть последнюю тему
+//	Список тем с закрывающими комментами
 //		Открыть последнюю тему в новой вкладке
-		LastPage lastPage = new LastPage(driver);
-		lastPage.open();
-		Thread.sleep(1000);
-		System.out.println("Последняя странца открыта");
-		System.out.println("listAnchors: " + lastPage.listAnchors.size());
-		System.out.println(lastPage.listAnchors);
-//		lastPage.clickLastAnchor();
-//		найти текст "тема не актуальна"
-		Thread.sleep(5000);
-		List<String> rrr = lastPage.foundLinks();
-		System.out.println("lastPage.foundLinks() " + rrr);
+//		ForumPage lastPage = new ForumPage(driver);
+//		lastPage.open();
+//		Thread.sleep(1000);
+//		System.out.println("listAnchors: " + lastPage.listAnchors.size());
+//		System.out.println(lastPage.listAnchors);
+////		найти текст "тема не актуальна"
+//		Thread.sleep(5000);
+//		List<String> foundLinks = lastPage.foundLinks();
+//		System.out.println("lastPage.foundLinks() " + foundLinks);
+	
+//	Найти линки по всем страницам
+		ForumPage forumPage = new ForumPage(driver, 1);
+//		forumPage.open();
+//		Thread.sleep(1000);
+//		forumPage.foundLinks();
+		List<String> allLinks = new ArrayList<String>();
+		while (!forumPage.hasNextPage()) {
+			System.out.println("getPageNumber: " + forumPage.getPageNumber());
+			forumPage = forumPage.nextPage();
+			List<String> list = forumPage.foundLinks();
+			allLinks.addAll(list);
+		}
+		
+		int i =1;
+		System.out.println("  allLinks.size: " + allLinks.size());
+		for (String string : allLinks) {
+			System.out.println("   " + i++ + string);
+		}
+		System.out.println("===== stream ===========" );
+		allLinks.stream().forEach(ln -> System.out.println(ln));
+	
 	}
 
 }
