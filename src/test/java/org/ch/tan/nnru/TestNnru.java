@@ -71,23 +71,9 @@ public class TestNnru {
 		mainPage.clickButtonViceVersa();
 		mainPage.clickFilterByTitleSeek();
 		mainPage.clickButtonApply();
-//	Список тем с закрывающими комментами
-//		Открыть последнюю тему в новой вкладке
-//		ForumPage lastPage = new ForumPage(driver);
-//		lastPage.open();
-//		Thread.sleep(1000);
-//		System.out.println("listAnchors: " + lastPage.listAnchors.size());
-//		System.out.println(lastPage.listAnchors);
-////		найти текст "тема не актуальна"
-//		Thread.sleep(5000);
-//		List<String> foundLinks = lastPage.foundLinks();
-//		System.out.println("lastPage.foundLinks() " + foundLinks);
-	
+
 //	Найти линки по всем страницам
 		ForumPage forumPage = new ForumPage(driver, 1);
-//		forumPage.open();
-//		Thread.sleep(1000);
-//		forumPage.foundLinks();
 		List<String> allLinks = new ArrayList<String>();
 		while (!forumPage.hasNextPage()) {
 			System.out.println("getPageNumber: " + forumPage.getPageNumber());
@@ -95,7 +81,6 @@ public class TestNnru {
 			List<String> list = forumPage.foundLinks();
 			allLinks.addAll(list);
 		}
-		
 		int i =1;
 		System.out.println("  allLinks.size: " + allLinks.size());
 		for (String string : allLinks) {
@@ -104,6 +89,7 @@ public class TestNnru {
 		System.out.println("===== stream ===========" );
 		allLinks.stream().forEach(ln -> System.out.println(ln));
 	
+
 	}
 
 }
