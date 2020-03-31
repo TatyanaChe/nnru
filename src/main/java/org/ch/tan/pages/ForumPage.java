@@ -112,6 +112,13 @@ public class ForumPage extends PageObject {
 		return pageNumber;
 	}
 
+//	public void printHtml() {
+//		for (int i = 0; i < allLinks.length; i++) {
+//			
+//		}
+		
+//	}
+
 //	public List<String> foundOpenedThemes() {
 //		boolean result = false;
 //		List<String> links = new ArrayList<String>();
