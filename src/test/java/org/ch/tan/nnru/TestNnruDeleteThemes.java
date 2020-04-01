@@ -8,7 +8,9 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.ch.tan.common.Browser;
 import org.ch.tan.common.DriverFactory;
@@ -31,6 +33,8 @@ import org.openqa.selenium.support.ui.Select;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class TestNnruDeleteThemes {
+
+	String titleModerPage = " Интерфейс помощника модератора";
 
 	private WebDriver driver;
 //	MainPage mainPage = new MainPage(driver);
@@ -65,6 +69,7 @@ public class TestNnruDeleteThemes {
 		deleteLinks = driver.findElements(By.tagName("a"));
 		System.out.println("deleteLinks: " + deleteLinks);
 		List<String> dellnList = new ArrayList<String>();
+		// Составляем список ссылок для удаления
 		for (WebElement delln : deleteLinks) {
 			dellnList.add(delln.getAttribute("href"));
 			System.out.println("dellnList: " + dellnList);
@@ -88,9 +93,6 @@ public class TestNnruDeleteThemes {
 		for (String delLnStr : dellnList) {
 			topicPage.open(delLnStr);
 			System.out.println("delLnStr opened: " + delLnStr);
-			String winHandleBefore = driver.getWindowHandle();
-			System.out.println("winHandleBefore " + driver.getCurrentUrl());
-//			Thread.sleep(3000);
 			topicPage.moveToItemPropsDesc();
 			System.out.println("topicPage.moveToItemPropsDesc()");
 			topicPage.moveToMod();
@@ -99,19 +101,29 @@ public class TestNnruDeleteThemes {
 			System.out.println("topicPage.moveToEdit()");
 			topicPage.clickEditBtn();
 			System.out.println("topicPage.clickEditBtn()");
-//			Thread.sleep(3000);
 
 			ModerPage moderPage = new ModerPage(driver);
-			String winHandle = driver.getWindowHandle();
-			driver.switchTo().window(winHandle);
-			System.out.println("driver.switchTo().window(winHandle) " + driver.getCurrentUrl());
+			String current = driver.getWindowHandle();
+			System.out.println("current: " + current);
+			Set<String> handles = driver.getWindowHandles();
+			Iterator<String> it = handles.iterator();
+			String popup = "";
+			while (it.hasNext()) {
+				String h = (String) it.next();
+				System.out.println("handle: " + h);
+				if (!h.equals(current)) {
+					popup = h;
+				}
+			}
+			driver.switchTo().window(popup);
+			System.out.println("driver.switchTo().window(winHandle) in if " + driver.getTitle());
 			moderPage.clickCloseBtn();
 //			driver.close();
 			Thread.sleep(3000);
-//			System.out.println("moderPage.clickCloseBtn()");
-			driver.switchTo().window(winHandleBefore);
-			System.out.println("driver.switchTo().window(winHandleBefore)");
-
+			System.out.println("moderPage.clickCloseBtn()");
+			driver.switchTo().window(current);
+			System.out.println("driver.switchTo().window(current) " + driver.getTitle());
+			Thread.sleep(3000);
 		}
 
 	}

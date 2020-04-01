@@ -10,14 +10,15 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ModerPage extends PageObject {
 
+	
+	String titleModerPage = " Интерфейс помощника модератора";
+	
 	@FindBy(xpath = "//input[@value='[x] Закрыть']")
 	private WebElement closeThemeBtn;
 
 	@FindBy(xpath = "//input[@value='Закрыть окно']")
 	private WebElement closeWindowBtn;
 
-	
-	
 	public ModerPage(WebDriver driver) {
 		super(driver);
 	}
@@ -29,8 +30,10 @@ public class ModerPage extends PageObject {
 			System.out.println("closeThemeBtn.click()");
 		} finally {
 			Thread.sleep(3000);
-			closeWindowBtn.click();
-			System.out.println("closeThemeBtn.click(closeWindowBtn.click())");
+//			driver.close();
+////			closeWindowBtn.click();
+//			System.out.println("closeThemeBtn.click(closeWindowBtn.click())");
+//			System.out.println("driver.close()");
 		}
 	}
 
