@@ -118,12 +118,9 @@ public class TestNnruDeleteThemes {
 			driver.switchTo().window(popup);
 			System.out.println("driver.switchTo().window(winHandle) in if " + driver.getTitle());
 			moderPage.clickCloseBtn();
-//			driver.close();
-			Thread.sleep(3000);
 			System.out.println("moderPage.clickCloseBtn()");
 			driver.switchTo().window(current);
 			System.out.println("driver.switchTo().window(current) " + driver.getTitle());
-			Thread.sleep(3000);
 		}
 
 	}

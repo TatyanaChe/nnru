@@ -48,7 +48,6 @@ public class ForumPageObuv extends PageObject {
 		System.out.println("listAnchors: " + forumList);
 		List<String> links = new ArrayList<String>();
 		for (WebElement forumLink : forumList) {
-			System.out.println("isTopicClosed: " + topicClosedElement.getText());
 			String text = forumLink.getText();
 			System.out.println("forumLink text: " + text);
 			boolean isClosed = text.contains("[x]");
@@ -73,9 +72,9 @@ public class ForumPageObuv extends PageObject {
 				System.out.println("ln " + it + ": " + driver.getCurrentUrl());
 				String bodyText = driver.findElement(By.tagName("body")).getText();
 //				System.out.println("bodyText: " + bodyText);
-//				result = bodyText.contains("закрыть");
+				result = (bodyText.contains("закрыть") || bodyText.contains("тема не актуальна"));
 //				result = bodyText.contains("тема не актуальна");
-				result = bodyText.contains("купили");
+//				result = bodyText.contains("купили");
 //				result = bodyText.contains("нашл");
 				if (result) {
 					found.add(ln);

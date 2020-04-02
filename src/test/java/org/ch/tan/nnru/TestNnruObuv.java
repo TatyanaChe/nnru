@@ -78,14 +78,14 @@ public class TestNnruObuv {
 		mainPageObuv.clickTopicFilter();
 		System.out.println("mainPageObuv.clickTopicFilter");
 		mainPageObuv.clickFilterAll();
-		mainPageObuv.clickButtonViceVersa();
-		mainPageObuv.clickFilterByTitleSeek();
+//		mainPageObuv.clickButtonViceVersa();
+//		mainPageObuv.clickFilterByTitleSeek();
 		mainPageObuv.clickButtonApply();
 
 		// Найти линки по всем страницам
 		ForumPageObuv forumPageObuv = new ForumPageObuv(driver, 1);
 		List<String> allLinks = new ArrayList<String>();
-		while (!forumPageObuv.hasNextPage()) {
+		while (!forumPageObuv.hasNextPage() && (forumPageObuv.getPageNumber() <= 20)) {
 			System.out.println("getPageNumber: " + forumPageObuv.getPageNumber());
 			forumPageObuv = forumPageObuv.nextPage();
 			List<String> list = forumPageObuv.foundLinks();
@@ -98,51 +98,7 @@ public class TestNnruObuv {
 		}
 		System.out.println("===== stream ===========");
 		allLinks.stream().forEach(ln -> System.out.println(ln));
-	
-		// Печать html списка
 
-//		File filename = new File("D:\\ws\\selenuim\\nnru\\src\\test\\resources\\report.html");
-//		FileWriter fr = null;
-//		
-//		String begin = "<!DOCTYPE html>\r\n" + 
-//				"<html lang=\"ru\">\r\n" + 
-//				"<head>\r\n" + 
-//				"<meta charset=\"UTF-8\">\r\n" + 
-//				"\r\n" + 
-//				"</head>\r\n" + 
-//				"<body>\r\n" + 
-//				"</body>\r\n" + 
-//				"</html>";
-//		
-//		
-//		try {
-//			fr = new FileWriter(filename);
-//			fr.write(begin);
-//		}
-//		finally {
-//			fr.close();
-//		}
-		
-//		String begin = "<!DOCTYPE html>\r\n" + 
-//				"<html lang=\"ru\">\r\n" + 
-//				"<head>\r\n" + 
-//				"<meta charset=\"UTF-8\">\r\n" + 
-//				"\r\n" + 
-//				"</head>\r\n" + 
-//				"<body>\r\n" + 
-//				"</body>\r\n" + 
-//				"</html>";
-//		String end = "</body>\\r\\n" + "\r\n" + 
-//				"</html>";
-//		FileOutputStream outputStream;
-//		 try {
-//	          outputStream = openFileOutput(filename, Context.MODE_APPEND);
-//	          outputStream.write(begin);
-//	          outputStream.write(end);
-//	          outputStream.close();
-//	        } catch (Exception e) {
-//	          e.printStackTrace();
-//	        }
-}
+	}
 
 }

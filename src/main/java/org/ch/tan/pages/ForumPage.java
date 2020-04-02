@@ -48,7 +48,6 @@ public class ForumPage extends PageObject {
 		System.out.println("listAnchors: " + forumList);
 		List<String> links = new ArrayList<String>();
 		for (WebElement forumLink : forumList) {
-			System.out.println("isTopicClosed: " + topicClosedElement.getText());
 			String text = forumLink.getText();
 			System.out.println("forumLink text: " + text);
 			boolean isClosed = text.contains("[x]");
@@ -73,9 +72,9 @@ public class ForumPage extends PageObject {
 				System.out.println("ln " + it + ": " + driver.getCurrentUrl());
 				String bodyText = driver.findElement(By.tagName("body")).getText();
 //				System.out.println("bodyText: " + bodyText);
-//				result = bodyText.contains("закрыть");
-//				result = bodyText.contains("тема не актуальна");
-				result = bodyText.contains("купили");
+				result = bodyText.contains("закрыть");
+//				result = bodyText.contains("не актуальн");
+//				result = bodyText.contains("купили");
 //				result = bodyText.contains("нашл");
 				if (result) {
 					found.add(ln);
@@ -112,48 +111,5 @@ public class ForumPage extends PageObject {
 		return pageNumber;
 	}
 
-//	public void printHtml() {
-//		for (int i = 0; i < allLinks.length; i++) {
-//			
-//		}
-		
-//	}
-
-//	public List<String> foundOpenedThemes() {
-//		boolean result = false;
-//		List<String> links = new ArrayList<String>();
-//		for (WebElement listAnchor : listAnchors) {
-//			String href = listAnchor.getAttribute("href");
-//			links.add(href);
-//			System.out.println(" + href: " + href);
-//		}
-//		List<String> foundOpened = new ArrayList<String>();
-//		int it = 1;
-//		for (String ln : links) {
-//			try {
-//				driver.get(ln);
-//				System.out.println("ln " + it + ": " + driver.getCurrentUrl());
-////				String bodyText = driver.findElement(By.tagName("body")).getText();
-////				System.out.println("bodyText: " + bodyText);
-////				result = bodyText.contains("закрыть");
-////				result = bodyText.contains("тема не актуальна");
-////				result = bodyText.contains("купили");
-////				result = bodyText.contains("                        [x]                            ");
-////				result = bodyText.contains("comment__send comment__send_gift giftUrl");
-////				result = sendGiftBtn.isDisplayed() && sendGiftBtn.isEnabled();
-//				if (result) {
-//					foundOpened.add(ln);
-////					System.out.println("foundOpened:  in if " + foundOpened);
-//				}
-//				System.out.println("result opened: in try " + result);
-//			} catch (Exception e) {
-//				// TODO: handle exception
-//			}
-//			it = it + 1;
-//			System.out.println("foundOpened:  in if " + foundOpened);
-//		}
-//		return foundOpened;
-//
-//	}
 
 }

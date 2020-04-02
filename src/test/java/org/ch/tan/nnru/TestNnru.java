@@ -7,7 +7,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.ch.tan.common.Browser;
@@ -23,11 +27,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class TestNnru {
 
+	private static Logger logger = LoggerFactory.getLogger(TestNnru.class);
+	
 	private WebDriver driver;
 //	MainPage mainPage = new MainPage(driver);
 
@@ -47,6 +55,7 @@ public class TestNnru {
 
 	@Test
 	public void test() throws InterruptedException, IOException {
+		logger.info("starting test .. ");
 		MainPage mainPage = new MainPage(driver);
 		mainPage.open();
 		Thread.sleep(1000);
@@ -76,14 +85,21 @@ public class TestNnru {
 		mainPage.clickTopicFilter();
 		System.out.println("mainPage.clickTopicFilter");
 		mainPage.clickFilterAll();
-		mainPage.clickButtonViceVersa();
-		mainPage.clickFilterByTitleSeek();
+//		mainPage.clickButtonViceVersa();
+//		mainPage.clickFilterByTitleSeek();
 		mainPage.clickButtonApply();
 
 		// Найти линки по всем страницам
 		ForumPage forumPage = new ForumPage(driver, 1);
 		List<String> allLinks = new ArrayList<String>();
-		while (!forumPage.hasNextPage()) {
+		DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+		Calendar dateNow = Calendar.getInstance();
+		System.out.println(df.format(dateNow.getTime()));
+		Date dateBefore = new Date();
+//		dateBefore = dateNow.getTime() - ;
+//		System.out.println(df.format(dateBefore));
+		while (!forumPage.hasNextPage() && (forumPage.getPageNumber() <= 20)) {
+//				&& (mainPage.dateTopic() < dateBefore)) {
 			System.out.println("getPageNumber: " + forumPage.getPageNumber());
 			forumPage = forumPage.nextPage();
 			List<String> list = forumPage.foundLinks();
@@ -96,51 +112,14 @@ public class TestNnru {
 		}
 		System.out.println("===== stream ===========");
 		allLinks.stream().forEach(ln -> System.out.println(ln));
-	
-		// Печать html списка
 
-		File filename = new File("D:\\ws\\selenuim\\nnru\\src\\test\\resources\\report.html");
-		FileWriter fr = null;
-		
-		String begin = "<!DOCTYPE html>\r\n" + 
-				"<html lang=\"ru\">\r\n" + 
-				"<head>\r\n" + 
-				"<meta charset=\"UTF-8\">\r\n" + 
-				"\r\n" + 
-				"</head>\r\n" + 
-				"<body>\r\n" + 
-				"</body>\r\n" + 
-				"</html>";
-		
-		
-		try {
-			fr = new FileWriter(filename);
-			fr.write(begin);
-		}
-		finally {
-			fr.close();
-		}
-		
-//		String begin = "<!DOCTYPE html>\r\n" + 
-//				"<html lang=\"ru\">\r\n" + 
-//				"<head>\r\n" + 
-//				"<meta charset=\"UTF-8\">\r\n" + 
-//				"\r\n" + 
-//				"</head>\r\n" + 
-//				"<body>\r\n" + 
-//				"</body>\r\n" + 
-//				"</html>";
-//		String end = "</body>\\r\\n" + "\r\n" + 
-//				"</html>";
-//		FileOutputStream outputStream;
-//		 try {
-//	          outputStream = openFileOutput(filename, Context.MODE_APPEND);
-//	          outputStream.write(begin);
-//	          outputStream.write(end);
-//	          outputStream.close();
-//	        } catch (Exception e) {
-//	          e.printStackTrace();
-//	        }
-}
+	}
+	
+	@Test
+	public void testLog() {
+		logger.info("starting test .. ");
+		logger.info("starting test .. 2 ....");
+	}
+
 
 }
