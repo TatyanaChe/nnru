@@ -10,16 +10,16 @@ import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ForumPage extends PageObject {
+public class ForumPageOdezhda extends PageObject {
 
-	private static Logger logger = LoggerFactory.getLogger(ForumPage.class);
-	
+	private static Logger logger = LoggerFactory.getLogger(ForumPageOdezhda.class);
+
 	private int pageNumber;
-	private static final String URL_TEMPLATE = "https://www.nn.ru/community/my_baby/detskiy-transport/?Part=%s";
+	private static final String URL_TEMPLATE = "https://www.nn.ru/community/my_baby/detskaya_odezhda/?Part=%s";
 
 //	@FindBy(xpath = "*//*[@class='heading-cont']/a[1]")
 //	public List<WebElement> forumList;
-	
+
 	@FindBy(xpath = "*//*[@class='heading-cont']")
 	public List<WebElement> forumList;
 
@@ -29,13 +29,13 @@ public class ForumPage extends PageObject {
 	@FindBy(xpath = "//div[contains(text(),'[x]')]")
 	public WebElement topicClosedElement;
 
-	public ForumPage(WebDriver driver, int pageNumber) {
+	public ForumPageOdezhda(WebDriver driver, int pageNumber) {
 		super(driver);
 		this.pageNumber = pageNumber;
 	}
 
 	public void open() {
-		driver.get("https://www.nn.ru/community/my_baby/detskiy-transport/?Part=7");
+		driver.get("https://www.nn.ru/community/my_baby/detskaya_odezhda/?Part=1");
 	}
 
 	public void clickLastAnchor() {
@@ -74,10 +74,12 @@ public class ForumPage extends PageObject {
 				logger.info("ln " + it + ": " + driver.getCurrentUrl());
 				String bodyText = driver.findElement(By.tagName("body")).getText();
 //				logger.info("bodyText: " + bodyText);
+//				result = bodyText.contains("продан");
 				result = (bodyText.contains("пристроен") 
 						|| bodyText.contains("продан") 
 						|| bodyText.contains("закрыть") 
 						|| bodyText.contains("тема не актуальна"));
+//				result = bodyText.contains("тема не актуальна");
 //				result = bodyText.contains("купили");
 //				result = bodyText.contains("нашл");
 				if (result) {
@@ -103,10 +105,10 @@ public class ForumPage extends PageObject {
 		return resultPageNotExist;
 	}
 
-	public ForumPage nextPage() {
+	public ForumPageOdezhda nextPage() {
 		String nextUrl = String.format(URL_TEMPLATE, pageNumber++);
 		driver.get(nextUrl);
-		ForumPage page = new ForumPage(driver, pageNumber);
+		ForumPageOdezhda page = new ForumPageOdezhda(driver, pageNumber);
 		return page;
 
 	}
@@ -114,6 +116,5 @@ public class ForumPage extends PageObject {
 	public int getPageNumber() {
 		return pageNumber;
 	}
-
 
 }

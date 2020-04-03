@@ -25,10 +25,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class TestNnruObuv {
+
+	private static Logger logger = LoggerFactory.getLogger(TestNnruObuv.class);
 
 	private WebDriver driver;
 //	MainPage mainPage = new MainPage(driver);
@@ -54,29 +58,29 @@ public class TestNnruObuv {
 		Thread.sleep(1000);
 		String transportUrl = "https://www.nn.ru/community/my_baby/detskaya_obuv/";
 		assertTrue("The page is not obuv", mainPageObuv.getTransportPage().equals(transportUrl));
-		System.out.println("obuv is opened");
+		logger.info("obuv is opened");
 
 		// Авторизация
 		mainPageObuv.clickLogin();
 		mainPageObuv.enterLogin(Props.getLogin());
 		mainPageObuv.enterPassword(Props.getPassword());
 		mainPageObuv.clickEnterBtn();
-		System.out.println("Успешная авторизация");
+		logger.info("Успешная авторизация");
 
 		// Сортировка
 		Thread.sleep(5000);
 		mainPageObuv.clickSortBtn();
-		System.out.println("clickSortBtn");
+		logger.info("clickSortBtn");
 		Thread.sleep(1000);
 		mainPageObuv.clickUgolok();
-		System.out.println("mainPage.clickUgolok");
+		logger.info("mainPage.clickUgolok");
 		mainPageObuv.clickSortSelectByTopic();
-		System.out.println("Сортировка");
+		logger.info("Сортировка");
 		Thread.sleep(1000);
 
 		// Фильтр Ищу
 		mainPageObuv.clickTopicFilter();
-		System.out.println("mainPageObuv.clickTopicFilter");
+		logger.info("mainPageObuv.clickTopicFilter");
 		mainPageObuv.clickFilterAll();
 //		mainPageObuv.clickButtonViceVersa();
 //		mainPageObuv.clickFilterByTitleSeek();
@@ -86,18 +90,18 @@ public class TestNnruObuv {
 		ForumPageObuv forumPageObuv = new ForumPageObuv(driver, 1);
 		List<String> allLinks = new ArrayList<String>();
 		while (!forumPageObuv.hasNextPage() && (forumPageObuv.getPageNumber() <= 20)) {
-			System.out.println("getPageNumber: " + forumPageObuv.getPageNumber());
+			logger.info("getPageNumber: " + forumPageObuv.getPageNumber());
 			forumPageObuv = forumPageObuv.nextPage();
 			List<String> list = forumPageObuv.foundLinks();
 			allLinks.addAll(list);
 		}
 		int i = 1;
-		System.out.println("  allLinks.size: " + allLinks.size());
+		logger.info("  allLinks.size: " + allLinks.size());
 		for (String string : allLinks) {
-			System.out.println("   " + i++ + string);
+			logger.info("   " + i++ + string);
 		}
-		System.out.println("===== stream ===========");
-		allLinks.stream().forEach(ln -> System.out.println(ln));
+		logger.info("===== stream ===========");
+		allLinks.stream().forEach(ln -> logger.info(ln));
 
 	}
 

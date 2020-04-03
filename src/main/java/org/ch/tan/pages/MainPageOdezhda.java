@@ -9,9 +9,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MainPage extends PageObject {
+public class MainPageOdezhda extends PageObject {
 
-	private static Logger logger = LoggerFactory.getLogger(MainPage.class);
+	private static Logger logger = LoggerFactory.getLogger(MainPageOdezhda.class);
 	
 	@FindBy(xpath = "//*[@title='Вход']")
 	private WebElement enterLink;
@@ -23,7 +23,7 @@ public class MainPage extends PageObject {
 	private WebElement password;
 
 	@FindBy(xpath = "//input[@value='Войти']")
-	private WebElement blueBtn;
+	public WebElement blueBtn;
 
 	@FindBy(xpath = "//*[@class='sort-btn']")
 	private WebElement sortBtn;
@@ -43,7 +43,7 @@ public class MainPage extends PageObject {
 	@FindBy(xpath = "//*[@class='topics-filter__item-title js-filter-title'][12]")
 	public WebElement filterByTitleSeek;
 
-	@FindBy(xpath = "//*[text()='Куплю/Ищу']/../div[1]")
+	@FindBy(xpath = "//*[text()='Ищу']/../div[1]")
 	public WebElement topicBuySearch;
 
 	@FindBy(xpath = "//*[@class='topics-filter__button ns-btn ns-btn_white js-filter-revers']")
@@ -54,19 +54,23 @@ public class MainPage extends PageObject {
 
 	;
 
-	public MainPage(WebDriver driver) {
+	public MainPageOdezhda(WebDriver driver) {
 		super(driver);
 	}
 
 	public void open() {
-		driver.get("https://www.nn.ru/community/my_baby/detskiy-transport/");
+		driver.get("https://www.nn.ru/community/my_baby/detskaya_odezhda/");
 	}
 
-	public String getTransportPage() {
+	public String getOdezhdaPage() {
 		return driver.getCurrentUrl();
 	}
 
 	public void clickLogin() {
+//		WebDriverWait wait = new WebDriverWait(driver, 10000);
+//		By locatorSelectByTopic = By.xpath("//*[@title='Вход']");
+//		wait.until(ExpectedConditions.visibilityOfElementLocated(locatorSelectByTopic));
+
 		enterLink.click();
 
 	}

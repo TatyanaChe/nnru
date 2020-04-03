@@ -6,8 +6,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MainPageObuv extends PageObject {
+
+	private static Logger logger = LoggerFactory.getLogger(MainPageObuv.class);
 
 	@FindBy(xpath = "//*[@title='Вход']")
 	private WebElement enterLink;
@@ -87,7 +91,7 @@ public class MainPageObuv extends PageObject {
 
 	public void clickUgolok() throws InterruptedException {
 		ugolok.click();
-		System.out.println("clickUgolok");
+		logger.info("clickUgolok");
 		Thread.sleep(1000);
 	}
 
@@ -97,7 +101,7 @@ public class MainPageObuv extends PageObject {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(locatorSelectByTopic));
 		// Thread.sleep(10000);
 		sortSelectByTopic.click();
-		System.out.println("clickSortSelectByTopic");
+		logger.info("clickSortSelectByTopic");
 		Thread.sleep(1000);
 	}
 
@@ -107,14 +111,14 @@ public class MainPageObuv extends PageObject {
 //		wait.until(ExpectedConditions.visibilityOfElementLocated(locatorTopicFilter));
 		Thread.sleep(1000);
 		topicFilter.click();
-		System.out.println("clickTopicFilter");
+		logger.info("clickTopicFilter");
 		Thread.sleep(1000);
 	}
 
 	public void clickFilterByTitleSeek() throws InterruptedException {
 		Thread.sleep(1000);
 		topicBuySearch.click();
-		System.out.println("clickFilterByTitleSeek");
+		logger.info("clickFilterByTitleSeek");
 		Thread.sleep(1000);
 
 	}
@@ -122,21 +126,21 @@ public class MainPageObuv extends PageObject {
 	public void clickButtonViceVersa() throws InterruptedException {
 		Thread.sleep(1000);
 		buttonViceVersa.click();
-		System.out.println("clickButtonViceVersa");
+		logger.info("clickButtonViceVersa");
 		Thread.sleep(1000);
 	}
 
 	public void clickButtonApply() throws InterruptedException {
 		Thread.sleep(1000);
 		buttonApply.click();
-		System.out.println("clickButtonApply");
+		logger.info("clickButtonApply");
 		Thread.sleep(1000);
 	}
 
 	public void clickFilterAll() throws InterruptedException {
 		Thread.sleep(1000);
 		buttonFilterAll.click();
-		System.out.println("clickFilterAll");
+		logger.info("clickFilterAll");
 		Thread.sleep(1000);
 	}
 

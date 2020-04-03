@@ -7,9 +7,13 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TopicPage extends PageObject {
 
+	private static Logger logger = LoggerFactory.getLogger(TopicPage.class);
+	
 	@FindBy(xpath = "*//*[@itemprop='description']")
 	private WebElement itemPropDesc;
 
@@ -36,7 +40,7 @@ public class TopicPage extends PageObject {
 		Actions action = new Actions(driver);
 		action.moveToElement(itemPropDesc);
 		Thread.sleep(5000);
-		System.out.println("actionItemPropDesc");
+		logger.info("actionItemPropDesc");
 		action.perform();
 		Thread.sleep(5000);
 
@@ -51,7 +55,7 @@ public class TopicPage extends PageObject {
 		Actions action = new Actions(driver);
 		action.moveToElement(itemPropModBtn);
 //		Thread.sleep(5000);
-		System.out.println("itemPropModBtn");
+		logger.info("itemPropModBtn");
 		action.perform();
 //		Thread.sleep(5000);
 
@@ -66,7 +70,7 @@ public class TopicPage extends PageObject {
 		Actions action = new Actions(driver);
 		action.moveToElement(EditBtn);
 //		Thread.sleep(5000);
-		System.out.println("EditBtn");
+		logger.info("EditBtn");
 		action.perform();
 //		Thread.sleep(5000);
 	}

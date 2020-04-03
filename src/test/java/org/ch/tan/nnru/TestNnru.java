@@ -61,29 +61,29 @@ public class TestNnru {
 		Thread.sleep(1000);
 		String transportUrl = "https://www.nn.ru/community/my_baby/detskiy-transport/";
 		assertTrue("The page is not detskiy-transport", mainPage.getTransportPage().equals(transportUrl));
-		System.out.println("detskiy-transport is opened");
+		logger.info("detskiy-transport is opened");
 
 		// Авторизация
 		mainPage.clickLogin();
 		mainPage.enterLogin(Props.getLogin());
 		mainPage.enterPassword(Props.getPassword());
 		mainPage.clickEnterBtn();
-		System.out.println("Успешная авторизация");
+		logger.info("Успешная авторизация");
 
 		// Сортировка
 		Thread.sleep(5000);
 		mainPage.clickSortBtn();
-		System.out.println("clickSortBtn");
+		logger.info("clickSortBtn");
 		Thread.sleep(1000);
 		mainPage.clickUgolok();
-		System.out.println("mainPage.clickUgolok");
+		logger.info("mainPage.clickUgolok");
 		mainPage.clickSortSelectByTopic();
-		System.out.println("Сортировка");
+		logger.info("Сортировка");
 		Thread.sleep(1000);
 
 		// Фильтр Ищу
 		mainPage.clickTopicFilter();
-		System.out.println("mainPage.clickTopicFilter");
+		logger.info("mainPage.clickTopicFilter");
 		mainPage.clickFilterAll();
 //		mainPage.clickButtonViceVersa();
 //		mainPage.clickFilterByTitleSeek();
@@ -94,32 +94,32 @@ public class TestNnru {
 		List<String> allLinks = new ArrayList<String>();
 		DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
 		Calendar dateNow = Calendar.getInstance();
-		System.out.println(df.format(dateNow.getTime()));
+		logger.info(df.format(dateNow.getTime()));
 		Date dateBefore = new Date();
 //		dateBefore = dateNow.getTime() - ;
-//		System.out.println(df.format(dateBefore));
+//		logger.info(df.format(dateBefore));
 		while (!forumPage.hasNextPage() && (forumPage.getPageNumber() <= 20)) {
 //				&& (mainPage.dateTopic() < dateBefore)) {
-			System.out.println("getPageNumber: " + forumPage.getPageNumber());
+			logger.info("getPageNumber: " + forumPage.getPageNumber());
 			forumPage = forumPage.nextPage();
 			List<String> list = forumPage.foundLinks();
 			allLinks.addAll(list);
 		}
 		int i = 1;
-		System.out.println("  allLinks.size: " + allLinks.size());
+		logger.info("  allLinks.size: " + allLinks.size());
 		for (String string : allLinks) {
-			System.out.println("   " + i++ + string);
+			logger.info("   " + i++ + string);
 		}
-		System.out.println("===== stream ===========");
-		allLinks.stream().forEach(ln -> System.out.println(ln));
+		logger.info("===== stream ===========");
+		allLinks.stream().forEach(ln -> logger.info(ln));
 
 	}
 	
-	@Test
-	public void testLog() {
-		logger.info("starting test .. ");
-		logger.info("starting test .. 2 ....");
-	}
+//	@Test
+//	public void testLog() {
+//		logger.info("starting test .. ");
+//		logger.info("starting test .. 2 ....");
+//	}
 
 
 }
