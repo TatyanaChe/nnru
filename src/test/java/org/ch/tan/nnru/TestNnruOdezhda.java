@@ -2,12 +2,14 @@ package org.ch.tan.nnru;
 
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.io.FileUtils;
 import org.ch.tan.common.Browser;
 import org.ch.tan.common.DriverFactory;
 import org.ch.tan.common.Props;
@@ -122,14 +124,7 @@ public class TestNnruOdezhda {
 		// Найти линки по всем страницам
 		ForumPageOdezhda forumPageOdezhda = new ForumPageOdezhda(driver, 1);
 		List<String> allLinks = new ArrayList<String>();
-//		DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
-//		Calendar dateNow = Calendar.getInstance();
-//		logger.info(df.format(dateNow.getTime()));
-//		Date dateBefore = new Date();
-//		dateBefore = dateNow.getTime() - ;
-//		logger.info(df.format(dateBefore));
 		while (!forumPageOdezhda.hasNextPage() && (forumPageOdezhda.getPageNumber() <= 20)) {
-//				&& (mainPage.dateTopic() < dateBefore)) {
 			logger.info("getPageNumber: " + forumPageOdezhda.getPageNumber());
 			forumPageOdezhda = forumPageOdezhda.nextPage();
 			List<String> list = forumPageOdezhda.foundLinks();
@@ -141,14 +136,31 @@ public class TestNnruOdezhda {
 			logger.info("   " + i++ + string);
 		}
 		logger.info("===== stream ===========");
-		allLinks.stream().forEach(ln -> logger.info(ln));
+		String html = convertToHtml(allLinks);
+		FileUtils.write(new File("D:/ws/selenium/nnru/src/test/resources/report_odezhda.html"), html,
+				"UTF-8");
+		logger.info(" new html: " + html);
 
-//	}
-
-//	@Test
-//	public void testLog() {
-//		logger.info("starting test .. ");
-//		logger.info("starting test .. 2 ....");
 	}
+
+		private String convertToHtml(List<String> allLinks) throws IOException {
+			
+			StringBuffer sb = new StringBuffer();
+			sb.append("<!DOCTYPE html>\r\n");
+			sb.append("<html lang=\"ru\">\r\n");
+			sb.append("<head>\r\n");
+			sb.append("<meta charset=\"UTF-8\">\r\n");
+			sb.append("</head>\r\n");
+			sb.append("<body>");
+			for (String link : allLinks) {
+				sb.append("<a href=\"");
+				sb.append(link);
+				sb.append("\">");
+				sb.append(link);
+				sb.append("</a><br>\n");
+			}
+			sb.append("</body>\r\n" + "</html>");
+			return sb.toString();
+		}
 
 }

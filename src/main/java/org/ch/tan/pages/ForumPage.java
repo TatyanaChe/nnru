@@ -17,14 +17,8 @@ public class ForumPage extends PageObject {
 	private int pageNumber;
 	private static final String URL_TEMPLATE = "https://www.nn.ru/community/my_baby/detskiy-transport/?Part=%s";
 
-//	@FindBy(xpath = "*//*[@class='heading-cont']/a[1]")
-//	public List<WebElement> forumList;
-	
 	@FindBy(xpath = "*//*[@class='heading-cont']")
 	public List<WebElement> forumList;
-
-//	@FindBy(xpath = "//*[@class='comment__send']")
-//	public WebElement sendGiftBtn;
 
 	@FindBy(xpath = "//div[contains(text(),'[x]')]")
 	public WebElement topicClosedElement;
@@ -55,14 +49,11 @@ public class ForumPage extends PageObject {
 			boolean isClosed = text.contains("[x]");
 			logger.info("isClosed = text.contains(\"[x]\") : " + isClosed);
 			String forumLinkhref = forumLink.findElement(By.xpath("./a")).getAttribute("href");
-//			String href = forumLinkhref.getAttribute("href");
 			if (!isClosed) {
-//				String href = forumLink.getAttribute("href");
 				links.add(forumLinkhref);
 				logger.info("links: " + links);
 				logger.info("not closed: " + forumLinkhref);
 			} else {
-//				String href = forumLink.getAttribute("href");
 				logger.info("closed : " + forumLinkhref);
 			}
 		}
@@ -74,8 +65,8 @@ public class ForumPage extends PageObject {
 				logger.info("ln " + it + ": " + driver.getCurrentUrl());
 				String bodyText = driver.findElement(By.tagName("body")).getText();
 //				logger.info("bodyText: " + bodyText);
-				result = (bodyText.contains("пристроен") 
-						|| bodyText.contains("продан") 
+				result = (bodyText.contains("ристроен") 
+						|| bodyText.contains("родан") 
 						|| bodyText.contains("закрыть") 
 						|| bodyText.contains("тема не актуальна"));
 //				result = bodyText.contains("купили");

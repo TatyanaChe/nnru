@@ -68,11 +68,8 @@ public class TestNnruDeleteThemes {
 		for (WebElement delln : deleteLinks) {
 			dellnList.add(delln.getAttribute("href"));
 			logger.info("dellnList: " + dellnList);
-//			topicPage.open(driver, delln);
 		}
-//		reportPage.close();
 //		Открываем nn.ru
-
 		MainPage mainPage = new MainPage(driver);
 		mainPage.open();
 		Thread.sleep(1000);
@@ -116,7 +113,6 @@ public class TestNnruDeleteThemes {
 			logger.info("moderPage.clickCloseBtn()");
 			logger.info("Theme closed: " + driver.getTitle());
 			driver.switchTo().window(current);
-			logger.info("driver.switchTo().window(current) " + driver.getTitle());
 		}
 
 	}

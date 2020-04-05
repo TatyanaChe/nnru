@@ -55,14 +55,11 @@ public class ForumPageObuv extends PageObject {
 			boolean isClosed = text.contains("[x]");
 			logger.info("isClosed = text.contains(\"[x]\") : " + isClosed);
 			String forumLinkhref = forumLink.findElement(By.xpath("./a")).getAttribute("href");
-//			String href = forumLinkhref.getAttribute("href");
 			if (!isClosed) {
-//				String href = forumLink.getAttribute("href");
 				links.add(forumLinkhref);
 				logger.info("links: " + links);
 				logger.info("not closed: " + forumLinkhref);
 			} else {
-//				String href = forumLink.getAttribute("href");
 				logger.info("closed : " + forumLinkhref);
 			}
 		}
@@ -73,9 +70,8 @@ public class ForumPageObuv extends PageObject {
 				driver.get(ln);
 				logger.info("ln " + it + ": " + driver.getCurrentUrl());
 				String bodyText = driver.findElement(By.tagName("body")).getText();
-//				logger.info("bodyText: " + bodyText);
-				result = (bodyText.contains("пристроен") 
-						|| bodyText.contains("продан") 
+				result = (bodyText.contains("ристроен") 
+						|| bodyText.contains("родан") 
 						|| bodyText.contains("закрыть") 
 						|| bodyText.contains("тема не актуальна"));
 				if (result) {

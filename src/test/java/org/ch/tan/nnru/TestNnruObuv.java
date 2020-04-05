@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.ch.tan.common.Browser;
 import org.ch.tan.common.DriverFactory;
 import org.ch.tan.common.Props;
@@ -35,7 +36,6 @@ public class TestNnruObuv {
 	private static Logger logger = LoggerFactory.getLogger(TestNnruObuv.class);
 
 	private WebDriver driver;
-//	MainPage mainPage = new MainPage(driver);
 
 	@Before
 	public void beforeTest() throws InterruptedException {
@@ -101,8 +101,29 @@ public class TestNnruObuv {
 			logger.info("   " + i++ + string);
 		}
 		logger.info("===== stream ===========");
-		allLinks.stream().forEach(ln -> logger.info(ln));
+		String html = convertToHtml(allLinks);
+		FileUtils.write(new File("D:/ws/selenium/nnru/src/test/resources/report_obuv.html"), html,
+				"UTF-8");
+		logger.info(" new html: " + html);
 
 	}
-
+	private String convertToHtml(List<String> allLinks) throws IOException {
+		
+		StringBuffer sb = new StringBuffer();
+		sb.append("<!DOCTYPE html>\r\n");
+		sb.append("<html lang=\"ru\">\r\n");
+		sb.append("<head>\r\n");
+		sb.append("<meta charset=\"UTF-8\">\r\n");
+		sb.append("</head>\r\n");
+		sb.append("<body>");
+		for (String link : allLinks) {
+			sb.append("<a href=\"");
+			sb.append(link);
+			sb.append("\">");
+			sb.append(link);
+			sb.append("</a><br>\n");
+		}
+		sb.append("</body>\r\n" + "</html>");
+		return sb.toString();
+	}
 }

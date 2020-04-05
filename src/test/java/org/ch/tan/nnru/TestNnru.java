@@ -11,9 +11,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.ch.tan.common.Browser;
 import org.ch.tan.common.DriverFactory;
 import org.ch.tan.common.Props;
@@ -35,7 +37,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class TestNnru {
 
 	private static Logger logger = LoggerFactory.getLogger(TestNnru.class);
-	
+
 	private WebDriver driver;
 //	MainPage mainPage = new MainPage(driver);
 
@@ -92,14 +94,7 @@ public class TestNnru {
 		// Найти линки по всем страницам
 		ForumPage forumPage = new ForumPage(driver, 1);
 		List<String> allLinks = new ArrayList<String>();
-		DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
-		Calendar dateNow = Calendar.getInstance();
-		logger.info(df.format(dateNow.getTime()));
-		Date dateBefore = new Date();
-//		dateBefore = dateNow.getTime() - ;
-//		logger.info(df.format(dateBefore));
-		while (!forumPage.hasNextPage() && (forumPage.getPageNumber() <= 20)) {
-//				&& (mainPage.dateTopic() < dateBefore)) {
+		while (!forumPage.hasNextPage() && (forumPage.getPageNumber() <= 5)) {
 			logger.info("getPageNumber: " + forumPage.getPageNumber());
 			forumPage = forumPage.nextPage();
 			List<String> list = forumPage.foundLinks();
@@ -111,15 +106,54 @@ public class TestNnru {
 			logger.info("   " + i++ + string);
 		}
 		logger.info("===== stream ===========");
-		allLinks.stream().forEach(ln -> logger.info(ln));
+		String html = convertToHtml(allLinks);
+		FileUtils.write(new File("D:/ws/selenium/nnru/src/test/resources/report_transport.html"), html,
+				"UTF-8");
+		logger.info(" new html: " + html);
 
 	}
-	
-//	@Test
-//	public void testLog() {
-//		logger.info("starting test .. ");
-//		logger.info("starting test .. 2 ....");
-//	}
 
+	private String convertToHtml(List<String> allLinks) throws IOException {
+		
+		StringBuffer sb = new StringBuffer();
+		sb.append("<!DOCTYPE html>\r\n");
+		sb.append("<html lang=\"ru\">\r\n");
+		sb.append("<head>\r\n");
+		sb.append("<meta charset=\"UTF-8\">\r\n");
+		sb.append("</head>\r\n");
+		sb.append("<body>");
+		for (String link : allLinks) {
+			sb.append("<a href=\"");
+			sb.append(link);
+			sb.append("\">");
+			sb.append(link);
+			sb.append("</a><br>\n");
+		}
+		sb.append("</body>\r\n" + "</html>");
+		return sb.toString();
+	}
+
+//	@Test
+//	public void printTest() throws IOException {
+//		File file = new File("D:/ws/selenium/nnru/src/test/resources/report_odezhda.txt");
+//		List<String> lines = FileUtils.readLines(file, "UTF-8");
+//		StringBuffer sb = new StringBuffer();
+//		sb.append("<!DOCTYPE html>\r\n");
+//		sb.append("<html lang=\"ru\">\r\n");
+//		sb.append("<head>\r\n");
+//		sb.append("<meta charset=\"UTF-8\">\r\n");
+//		sb.append("</head>\r\n");
+//		sb.append("<body>");
+//		File html = new File("D:/ws/selenium/nnru/src/test/resources/report_odezhda.html");
+//
+//		for (String line : lines) {
+//			FileUtils.write(html, sb.append("<a href=\"").toString(), "UTF-8");
+//			FileUtils.write(html, sb.append(line).toString(), "UTF-8");
+//			FileUtils.write(html, sb.append("\">").toString(), "UTF-8");
+//			FileUtils.write(html, sb.append(line).toString(), "UTF-8");
+//			FileUtils.write(html, sb.append("</a><br>").toString(), "UTF-8");
+//		}
+//		sb.append("</body>\r\n" + "</html>");
+//	}
 
 }
